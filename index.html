@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All D3 states combined</title>
+    <style>
+        div {
+            width: 200px;
+            height: 50px;
+            border: 1px dashed brown;
+            margin-bottom: 2px;
+        }
+
+        button {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <h1>All D3 states combined</h1>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+
+        //create an array of 6 random integers       
+        let arrNumbers = [];
+        for (let i = 0; i < 6; i++) {
+            arrNumbers.push(Math.floor(Math.random() * 10));
+        }
+
+        //show the array on the page. JSON.stringify() converts the array
+        // to a readable string
+        d3.select("body")
+            .append("p")
+            .text(`Using this array: ${JSON.stringify(arrNumbers)}`);
+
+        //add a button that adds 1 div when clicked
+        d3.select("body")
+            .append("button")
+            .on("click", function () {
+                d3.select("body").append("div");
+            })
+            .text("add 1 div");
+
+        //add a button that remove the last div when clicked
+        d3.select("body")
+            .append("button")
+            .on("click", function () {
+                d3.select("div:last-child").remove();
+            })
+            .text("remove 1 div");
+
+        //add a button that (re)builds the chart when clicked
+        d3.select("body")
+            .append("button")
+            .on("click", function () {
+                buildChart();
+            })
+            .text("build the chart");
+
+        function buildChart() {
+            // put your code here
+
+            let divs = d3.select("body")
+                .selectAll("div")
+                .data(arrNumbers);
+
+            divs.style("background", "green");
+
+            divs.enter()
+                .append("div")
+                .style("background", "orange");
+
+            divs.exit().style("background", "red")
+
+           
+
+
+
+        }
+    </script>
+</body>
+</html>
